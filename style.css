@@ -48,7 +48,7 @@ body {
 .add-button:hover {
   background-color: rgb(148, 130, 26);
   text-shadow: none;
-  color: rgb(221, 248, 248);
+  color: #ddf8f8;
   cursor: pointer;
 }
 
