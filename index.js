@@ -1,16 +1,27 @@
-$(document).ready();
-
-const groceryList = [];
+let groceryList = [];
 const groceryName = document.querySelector(".grocery-area");
 const addButton = document.querySelector(".add-button");
 const paragraph = document.querySelector("p");
 
 //funkcije
 
+function saveToStorage(){
+  localStorage.setItem("todo-items", JSON.stringify(groceryList));
+}
+
+function loadFromStorage(){
+  const foundObject = localStorage.getItem("todo-items");
+
+  if (foundObject && foundObject.length)
+    groceryList = JSON.parse(foundObject);
+  else
+    groceryList = [];
+
+  displayAllGroceriesInHtml(groceryList);
+}
+
 function displayAllGroceriesInHtml(groceryList) {
   const parentDiv = document.querySelector(".grocery-list-div");
-
-  parentDiv.innerHTML = "";
 
   groceryList.forEach(function (addingGroceries) {
     parentDiv.innerHTML += "<p>" + addingGroceries.name + "</p>";
@@ -32,8 +43,12 @@ function addGrocery(addingGroceries) {
   $(groceryName).fadeOut(1000);
   groceryName.disabled = true;
 
+  
   setTimeout(function () {
     groceryList.push(addingGroceries);
+
+    saveToStorage();
+
     displayAllGroceriesInHtml(groceryList);
 
     addButton.disabled = false;
@@ -60,6 +75,8 @@ function addNewGrocery() {
 
   addGrocery(newGrocery);
 
+  // localStorage.setItem("tasks", JSON.stringify(savedTasks));
+
   groceryName.value = "";
 }
 
@@ -74,3 +91,5 @@ groceryName.addEventListener("keyup", function (event) {
     addNewGrocery();
   }
 });
+
+loadFromStorage();
