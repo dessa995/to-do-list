@@ -3,19 +3,21 @@ const groceryName = document.querySelector(".grocery-area");
 const addButton = document.querySelector(".add-button");
 const paragraph = document.querySelector("p");
 
+let count = 2;
+
 //funkcije
 
-function saveToStorage(){
+function saveToStorage() {
   localStorage.setItem("todo-items", JSON.stringify(groceryList));
 }
 
-function loadFromStorage(){
+function loadFromStorage() {
   const foundObject = localStorage.getItem("todo-items");
 
-  if (foundObject && foundObject.length)
-    groceryList = JSON.parse(foundObject);
-  else
-    groceryList = [];
+  if (foundObject && foundObject.length) groceryList = JSON.parse(foundObject);
+  else groceryList = [];
+
+  console.log(groceryList);
 
   displayAllGroceriesInHtml(groceryList);
 }
@@ -24,7 +26,15 @@ function displayAllGroceriesInHtml(groceryList) {
   const parentDiv = document.querySelector(".grocery-list-div");
 
   groceryList.forEach(function (addingGroceries) {
-    parentDiv.innerHTML += "<p>" + addingGroceries.name + "</p>";
+    parentDiv.innerHTML +=
+      "<div>" +
+      "<p>" +
+      addingGroceries.name +
+      "</p>" +
+      "<button>" +
+      "x" +
+      "</button>" +
+      "</div>";
   });
 }
 
@@ -43,9 +53,11 @@ function addGrocery(addingGroceries) {
   $(groceryName).fadeOut(1000);
   groceryName.disabled = true;
 
-  
   setTimeout(function () {
     groceryList.push(addingGroceries);
+    addingGroceries.id = count++;
+
+    console.log(addingGroceries);
 
     saveToStorage();
 
@@ -71,6 +83,7 @@ function addGrocery(addingGroceries) {
 function addNewGrocery() {
   const newGrocery = {
     name: groceryName.value,
+    id: 1,
   };
 
   addGrocery(newGrocery);
@@ -93,3 +106,9 @@ groceryName.addEventListener("keyup", function (event) {
 });
 
 loadFromStorage();
+
+// Hvatamo dugme
+
+function deleteItem() {
+  $();
+}
