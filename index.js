@@ -25,6 +25,8 @@ function loadFromStorage() {
 function displayAllGroceriesInHtml(groceryList) {
   const parentDiv = document.querySelector(".grocery-list-div");
 
+  parentDiv.innerHTML = "";
+
   groceryList.forEach(function (addingGroceries) {
     parentDiv.innerHTML +=
       "<div>" +
