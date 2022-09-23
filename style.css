@@ -88,3 +88,28 @@ p {
   text-shadow: 2px 2px 8px black;
   border-bottom: 2px solid black;
 }
+
+.remove-btn-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.remove-btn {
+  border: none;
+  background-color: rgb(187, 163, 30);
+  border-radius: 8px;
+  width: 80px;
+  height: 38px;
+  color: azure;
+  text-shadow: 2px 2px 8px black;
+  font-size: 18px;
+}
+
+.remove-btn:hover {
+  background-color: rgb(148, 130, 26);
+  text-shadow: none;
+  color: #ddf8f8;
+  cursor: pointer;
+}

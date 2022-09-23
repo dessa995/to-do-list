@@ -1,7 +1,7 @@
 let groceryList = [];
 const groceryName = document.querySelector(".grocery-area");
 const addButton = document.querySelector(".add-button");
-const paragraph = document.querySelector("p");
+const removeButton = document.querySelector(".remove-btn");
 
 let count = 2;
 
@@ -9,6 +9,9 @@ let count = 2;
 
 function saveToStorage() {
   localStorage.setItem("todo-items", JSON.stringify(groceryList));
+}
+function removeFromStorage() {
+  localStorage.removeItem("todo-items", JSON.stringify(groceryList));
 }
 
 function loadFromStorage() {
@@ -28,15 +31,7 @@ function displayAllGroceriesInHtml(groceryList) {
   parentDiv.innerHTML = "";
 
   groceryList.forEach(function (addingGroceries) {
-    parentDiv.innerHTML +=
-      "<div>" +
-      "<p>" +
-      addingGroceries.name +
-      "</p>" +
-      "<button>" +
-      "x" +
-      "</button>" +
-      "</div>";
+    parentDiv.innerHTML += "<p>" + addingGroceries.name + "</p>";
   });
 }
 
@@ -54,10 +49,8 @@ function addGrocery(addingGroceries) {
   });
   $(groceryName).fadeOut(1000);
   groceryName.disabled = true;
-
   setTimeout(function () {
     groceryList.push(addingGroceries);
-    addingGroceries.id = count++;
 
     console.log(addingGroceries);
 
@@ -85,7 +78,6 @@ function addGrocery(addingGroceries) {
 function addNewGrocery() {
   const newGrocery = {
     name: groceryName.value,
-    id: 1,
   };
 
   addGrocery(newGrocery);
@@ -93,6 +85,19 @@ function addNewGrocery() {
   // localStorage.setItem("tasks", JSON.stringify(savedTasks));
 
   groceryName.value = "";
+}
+
+function removeGrocery(addingGroceries) {
+  groceryList.pop(addingGroceries);
+
+  removeFromStorage();
+
+  displayAllGroceriesInHtml(groceryList);
+}
+
+function removeItem() {
+  const oldGrocery = groceryList[0];
+  removeGrocery(oldGrocery);
 }
 
 //events
@@ -107,10 +112,10 @@ groceryName.addEventListener("keyup", function (event) {
   }
 });
 
+removeButton.addEventListener("click", function () {
+  removeItem();
+});
+
 loadFromStorage();
 
 // Hvatamo dugme
-
-function deleteItem() {
-  $();
-}
